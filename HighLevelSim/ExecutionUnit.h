@@ -8,6 +8,7 @@ struct ExecutionUnit : sc_module
 	sc_in<int> codetable;
 	sc_out<int> current_ip;
 	sc_in<BlockIndex> current_block;
+
 	sc_in_clk clk;
 
 	SC_CTOR(ExecutionUnit)
@@ -18,7 +19,7 @@ struct ExecutionUnit : sc_module
 	void Step();
 private:
 	int mIP;
-
+	int m
 	FetchUnit  mFetch;
 	DecodeUnit mDecode;
 	ALU        mALU;

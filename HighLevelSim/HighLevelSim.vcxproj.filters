@@ -18,10 +18,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="ExecutionUnit.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExecutionUnit.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedTypes.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConstants.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

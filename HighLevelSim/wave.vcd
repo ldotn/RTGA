@@ -1,0 +1,1028 @@
+$date
+     Feb 17, 2021       23:09:32
+$end
+
+$version
+ SystemC 2.3.4_pub_rev_20191203-Accellera --- Feb 12 2021 15:14:04
+$end
+
+$timescale
+     1 ps
+$end
+
+$scope module SystemC $end
+$scope module EU0 $end
+$var wire   32  aaaaa  mCurrentPixelIndex [31:0]  $end
+$var real    1  aaaab  mRegisters(0)_r0       $end
+$var real    1  aaaac  mRegisters(0)_r1       $end
+$var real    1  aaaad  mRegisters(0)_r2       $end
+$var real    1  aaaae  mRegisters(0)_r3       $end
+$var real    1  aaaaf  mRegisters(0)_r4       $end
+$var real    1  aaaag  mRegisters(0)_r5       $end
+$var real    1  aaaah  mRegisters(0)_r6       $end
+$var real    1  aaaai  mRegisters(0)_r7       $end
+$var real    1  aaaaj  mRegisters(0)_r8       $end
+$var real    1  aaaak  mRegisters(0)_r9       $end
+$var real    1  aaaal  mRegisters(0)_r10       $end
+$var real    1  aaaam  mRegisters(0)_r11       $end
+$var real    1  aaaan  mRegisters(0)_r12       $end
+$var real    1  aaaao  mRegisters(0)_r13       $end
+$var real    1  aaaap  mRegisters(0)_r14       $end
+$var real    1  aaaaq  mRegisters(0)_r15       $end
+$var wire    8  aaaar  mRegisters(0)_ip [7:0]  $end
+$var wire   30  aaaas  mRegisters(0)_tex_address [29:0]  $end
+$var wire   16  aaaat  mRegisters(0)_sample_offset [15:0]  $end
+$var real    1  aaaau  mRegisters(0)_tex_r       $end
+$var real    1  aaaav  mRegisters(0)_tex_g       $end
+$var real    1  aaaaw  mRegisters(0)_tex_b       $end
+$var wire    1  aaaax  mRegisters(0)_cmp       $end
+$var real    1  aaaay  mRegisters(0)_trace_cmd_ray_orig_x       $end
+$var real    1  aaaaz  mRegisters(0)_trace_cmd_ray_orig_y       $end
+$var real    1  aaaba  mRegisters(0)_trace_cmd_ray_orig_z       $end
+$var real    1  aaabb  mRegisters(0)_trace_cmd_ray_dir_x       $end
+$var real    1  aaabc  mRegisters(0)_trace_cmd_ray_dir_y       $end
+$var real    1  aaabd  mRegisters(0)_trace_cmd_ray_dir_z       $end
+$var real    1  aaabe  mRegisters(0)_trace_cmd_min_t       $end
+$var real    1  aaabf  mRegisters(0)_trace_cmd_max_t       $end
+$var real    1  aaabg  mRegisters(0)_trace_result_closest_t       $end
+$var real    1  aaabh  mRegisters(0)_trace_result_barycentric_u       $end
+$var real    1  aaabi  mRegisters(0)_trace_result_barycentric_v       $end
+$var real    1  aaabj  mRegisters(0)_trace_result_barycentric_w       $end
+$var real    1  aaabk  mRegisters(0)_trace_result_trig_v0_x       $end
+$var real    1  aaabl  mRegisters(0)_trace_result_trig_v0_y       $end
+$var real    1  aaabm  mRegisters(0)_trace_result_trig_v0_z       $end
+$var real    1  aaabn  mRegisters(0)_trace_result_trig_v1_x       $end
+$var real    1  aaabo  mRegisters(0)_trace_result_trig_v1_y       $end
+$var real    1  aaabp  mRegisters(0)_trace_result_trig_v1_z       $end
+$var real    1  aaabq  mRegisters(0)_trace_result_trig_v2_x       $end
+$var real    1  aaabr  mRegisters(0)_trace_result_trig_v2_y       $end
+$var real    1  aaabs  mRegisters(0)_trace_result_trig_v2_z       $end
+$var real    1  aaabt  mRegisters(0)_trace_result_trig_n0_x       $end
+$var real    1  aaabu  mRegisters(0)_trace_result_trig_n0_y       $end
+$var real    1  aaabv  mRegisters(0)_trace_result_trig_n0_z       $end
+$var real    1  aaabw  mRegisters(0)_trace_result_trig_n1_x       $end
+$var real    1  aaabx  mRegisters(0)_trace_result_trig_n1_y       $end
+$var real    1  aaaby  mRegisters(0)_trace_result_trig_n1_z       $end
+$var real    1  aaabz  mRegisters(0)_trace_result_trig_n2_x       $end
+$var real    1  aaaca  mRegisters(0)_trace_result_trig_n2_y       $end
+$var real    1  aaacb  mRegisters(0)_trace_result_trig_n2_z       $end
+$var real    1  aaacc  mRegisters(0)_trace_result_trig_uv0_x       $end
+$var real    1  aaacd  mRegisters(0)_trace_result_trig_uv0_y       $end
+$var real    1  aaace  mRegisters(0)_trace_result_trig_uv1_x       $end
+$var real    1  aaacf  mRegisters(0)_trace_result_trig_uv1_y       $end
+$var real    1  aaacg  mRegisters(0)_trace_result_trig_uv2_x       $end
+$var real    1  aaach  mRegisters(0)_trace_result_trig_uv2_y       $end
+$var wire   15  aaaci  mRegisters(0)_trace_result_trig_cb_index [14:0]  $end
+$var real    1  aaacj  mRegisters(1)_r0       $end
+$var real    1  aaack  mRegisters(1)_r1       $end
+$var real    1  aaacl  mRegisters(1)_r2       $end
+$var real    1  aaacm  mRegisters(1)_r3       $end
+$var real    1  aaacn  mRegisters(1)_r4       $end
+$var real    1  aaaco  mRegisters(1)_r5       $end
+$var real    1  aaacp  mRegisters(1)_r6       $end
+$var real    1  aaacq  mRegisters(1)_r7       $end
+$var real    1  aaacr  mRegisters(1)_r8       $end
+$var real    1  aaacs  mRegisters(1)_r9       $end
+$var real    1  aaact  mRegisters(1)_r10       $end
+$var real    1  aaacu  mRegisters(1)_r11       $end
+$var real    1  aaacv  mRegisters(1)_r12       $end
+$var real    1  aaacw  mRegisters(1)_r13       $end
+$var real    1  aaacx  mRegisters(1)_r14       $end
+$var real    1  aaacy  mRegisters(1)_r15       $end
+$var wire    8  aaacz  mRegisters(1)_ip [7:0]  $end
+$var wire   30  aaada  mRegisters(1)_tex_address [29:0]  $end
+$var wire   16  aaadb  mRegisters(1)_sample_offset [15:0]  $end
+$var real    1  aaadc  mRegisters(1)_tex_r       $end
+$var real    1  aaadd  mRegisters(1)_tex_g       $end
+$var real    1  aaade  mRegisters(1)_tex_b       $end
+$var wire    1  aaadf  mRegisters(1)_cmp       $end
+$var real    1  aaadg  mRegisters(1)_trace_cmd_ray_orig_x       $end
+$var real    1  aaadh  mRegisters(1)_trace_cmd_ray_orig_y       $end
+$var real    1  aaadi  mRegisters(1)_trace_cmd_ray_orig_z       $end
+$var real    1  aaadj  mRegisters(1)_trace_cmd_ray_dir_x       $end
+$var real    1  aaadk  mRegisters(1)_trace_cmd_ray_dir_y       $end
+$var real    1  aaadl  mRegisters(1)_trace_cmd_ray_dir_z       $end
+$var real    1  aaadm  mRegisters(1)_trace_cmd_min_t       $end
+$var real    1  aaadn  mRegisters(1)_trace_cmd_max_t       $end
+$var real    1  aaado  mRegisters(1)_trace_result_closest_t       $end
+$var real    1  aaadp  mRegisters(1)_trace_result_barycentric_u       $end
+$var real    1  aaadq  mRegisters(1)_trace_result_barycentric_v       $end
+$var real    1  aaadr  mRegisters(1)_trace_result_barycentric_w       $end
+$var real    1  aaads  mRegisters(1)_trace_result_trig_v0_x       $end
+$var real    1  aaadt  mRegisters(1)_trace_result_trig_v0_y       $end
+$var real    1  aaadu  mRegisters(1)_trace_result_trig_v0_z       $end
+$var real    1  aaadv  mRegisters(1)_trace_result_trig_v1_x       $end
+$var real    1  aaadw  mRegisters(1)_trace_result_trig_v1_y       $end
+$var real    1  aaadx  mRegisters(1)_trace_result_trig_v1_z       $end
+$var real    1  aaady  mRegisters(1)_trace_result_trig_v2_x       $end
+$var real    1  aaadz  mRegisters(1)_trace_result_trig_v2_y       $end
+$var real    1  aaaea  mRegisters(1)_trace_result_trig_v2_z       $end
+$var real    1  aaaeb  mRegisters(1)_trace_result_trig_n0_x       $end
+$var real    1  aaaec  mRegisters(1)_trace_result_trig_n0_y       $end
+$var real    1  aaaed  mRegisters(1)_trace_result_trig_n0_z       $end
+$var real    1  aaaee  mRegisters(1)_trace_result_trig_n1_x       $end
+$var real    1  aaaef  mRegisters(1)_trace_result_trig_n1_y       $end
+$var real    1  aaaeg  mRegisters(1)_trace_result_trig_n1_z       $end
+$var real    1  aaaeh  mRegisters(1)_trace_result_trig_n2_x       $end
+$var real    1  aaaei  mRegisters(1)_trace_result_trig_n2_y       $end
+$var real    1  aaaej  mRegisters(1)_trace_result_trig_n2_z       $end
+$var real    1  aaaek  mRegisters(1)_trace_result_trig_uv0_x       $end
+$var real    1  aaael  mRegisters(1)_trace_result_trig_uv0_y       $end
+$var real    1  aaaem  mRegisters(1)_trace_result_trig_uv1_x       $end
+$var real    1  aaaen  mRegisters(1)_trace_result_trig_uv1_y       $end
+$var real    1  aaaeo  mRegisters(1)_trace_result_trig_uv2_x       $end
+$var real    1  aaaep  mRegisters(1)_trace_result_trig_uv2_y       $end
+$var wire   15  aaaeq  mRegisters(1)_trace_result_trig_cb_index [14:0]  $end
+$var real    1  aaaer  mRegisters(2)_r0       $end
+$var real    1  aaaes  mRegisters(2)_r1       $end
+$var real    1  aaaet  mRegisters(2)_r2       $end
+$var real    1  aaaeu  mRegisters(2)_r3       $end
+$var real    1  aaaev  mRegisters(2)_r4       $end
+$var real    1  aaaew  mRegisters(2)_r5       $end
+$var real    1  aaaex  mRegisters(2)_r6       $end
+$var real    1  aaaey  mRegisters(2)_r7       $end
+$var real    1  aaaez  mRegisters(2)_r8       $end
+$var real    1  aaafa  mRegisters(2)_r9       $end
+$var real    1  aaafb  mRegisters(2)_r10       $end
+$var real    1  aaafc  mRegisters(2)_r11       $end
+$var real    1  aaafd  mRegisters(2)_r12       $end
+$var real    1  aaafe  mRegisters(2)_r13       $end
+$var real    1  aaaff  mRegisters(2)_r14       $end
+$var real    1  aaafg  mRegisters(2)_r15       $end
+$var wire    8  aaafh  mRegisters(2)_ip [7:0]  $end
+$var wire   30  aaafi  mRegisters(2)_tex_address [29:0]  $end
+$var wire   16  aaafj  mRegisters(2)_sample_offset [15:0]  $end
+$var real    1  aaafk  mRegisters(2)_tex_r       $end
+$var real    1  aaafl  mRegisters(2)_tex_g       $end
+$var real    1  aaafm  mRegisters(2)_tex_b       $end
+$var wire    1  aaafn  mRegisters(2)_cmp       $end
+$var real    1  aaafo  mRegisters(2)_trace_cmd_ray_orig_x       $end
+$var real    1  aaafp  mRegisters(2)_trace_cmd_ray_orig_y       $end
+$var real    1  aaafq  mRegisters(2)_trace_cmd_ray_orig_z       $end
+$var real    1  aaafr  mRegisters(2)_trace_cmd_ray_dir_x       $end
+$var real    1  aaafs  mRegisters(2)_trace_cmd_ray_dir_y       $end
+$var real    1  aaaft  mRegisters(2)_trace_cmd_ray_dir_z       $end
+$var real    1  aaafu  mRegisters(2)_trace_cmd_min_t       $end
+$var real    1  aaafv  mRegisters(2)_trace_cmd_max_t       $end
+$var real    1  aaafw  mRegisters(2)_trace_result_closest_t       $end
+$var real    1  aaafx  mRegisters(2)_trace_result_barycentric_u       $end
+$var real    1  aaafy  mRegisters(2)_trace_result_barycentric_v       $end
+$var real    1  aaafz  mRegisters(2)_trace_result_barycentric_w       $end
+$var real    1  aaaga  mRegisters(2)_trace_result_trig_v0_x       $end
+$var real    1  aaagb  mRegisters(2)_trace_result_trig_v0_y       $end
+$var real    1  aaagc  mRegisters(2)_trace_result_trig_v0_z       $end
+$var real    1  aaagd  mRegisters(2)_trace_result_trig_v1_x       $end
+$var real    1  aaage  mRegisters(2)_trace_result_trig_v1_y       $end
+$var real    1  aaagf  mRegisters(2)_trace_result_trig_v1_z       $end
+$var real    1  aaagg  mRegisters(2)_trace_result_trig_v2_x       $end
+$var real    1  aaagh  mRegisters(2)_trace_result_trig_v2_y       $end
+$var real    1  aaagi  mRegisters(2)_trace_result_trig_v2_z       $end
+$var real    1  aaagj  mRegisters(2)_trace_result_trig_n0_x       $end
+$var real    1  aaagk  mRegisters(2)_trace_result_trig_n0_y       $end
+$var real    1  aaagl  mRegisters(2)_trace_result_trig_n0_z       $end
+$var real    1  aaagm  mRegisters(2)_trace_result_trig_n1_x       $end
+$var real    1  aaagn  mRegisters(2)_trace_result_trig_n1_y       $end
+$var real    1  aaago  mRegisters(2)_trace_result_trig_n1_z       $end
+$var real    1  aaagp  mRegisters(2)_trace_result_trig_n2_x       $end
+$var real    1  aaagq  mRegisters(2)_trace_result_trig_n2_y       $end
+$var real    1  aaagr  mRegisters(2)_trace_result_trig_n2_z       $end
+$var real    1  aaags  mRegisters(2)_trace_result_trig_uv0_x       $end
+$var real    1  aaagt  mRegisters(2)_trace_result_trig_uv0_y       $end
+$var real    1  aaagu  mRegisters(2)_trace_result_trig_uv1_x       $end
+$var real    1  aaagv  mRegisters(2)_trace_result_trig_uv1_y       $end
+$var real    1  aaagw  mRegisters(2)_trace_result_trig_uv2_x       $end
+$var real    1  aaagx  mRegisters(2)_trace_result_trig_uv2_y       $end
+$var wire   15  aaagy  mRegisters(2)_trace_result_trig_cb_index [14:0]  $end
+$var real    1  aaagz  mRegisters(3)_r0       $end
+$var real    1  aaaha  mRegisters(3)_r1       $end
+$var real    1  aaahb  mRegisters(3)_r2       $end
+$var real    1  aaahc  mRegisters(3)_r3       $end
+$var real    1  aaahd  mRegisters(3)_r4       $end
+$var real    1  aaahe  mRegisters(3)_r5       $end
+$var real    1  aaahf  mRegisters(3)_r6       $end
+$var real    1  aaahg  mRegisters(3)_r7       $end
+$var real    1  aaahh  mRegisters(3)_r8       $end
+$var real    1  aaahi  mRegisters(3)_r9       $end
+$var real    1  aaahj  mRegisters(3)_r10       $end
+$var real    1  aaahk  mRegisters(3)_r11       $end
+$var real    1  aaahl  mRegisters(3)_r12       $end
+$var real    1  aaahm  mRegisters(3)_r13       $end
+$var real    1  aaahn  mRegisters(3)_r14       $end
+$var real    1  aaaho  mRegisters(3)_r15       $end
+$var wire    8  aaahp  mRegisters(3)_ip [7:0]  $end
+$var wire   30  aaahq  mRegisters(3)_tex_address [29:0]  $end
+$var wire   16  aaahr  mRegisters(3)_sample_offset [15:0]  $end
+$var real    1  aaahs  mRegisters(3)_tex_r       $end
+$var real    1  aaaht  mRegisters(3)_tex_g       $end
+$var real    1  aaahu  mRegisters(3)_tex_b       $end
+$var wire    1  aaahv  mRegisters(3)_cmp       $end
+$var real    1  aaahw  mRegisters(3)_trace_cmd_ray_orig_x       $end
+$var real    1  aaahx  mRegisters(3)_trace_cmd_ray_orig_y       $end
+$var real    1  aaahy  mRegisters(3)_trace_cmd_ray_orig_z       $end
+$var real    1  aaahz  mRegisters(3)_trace_cmd_ray_dir_x       $end
+$var real    1  aaaia  mRegisters(3)_trace_cmd_ray_dir_y       $end
+$var real    1  aaaib  mRegisters(3)_trace_cmd_ray_dir_z       $end
+$var real    1  aaaic  mRegisters(3)_trace_cmd_min_t       $end
+$var real    1  aaaid  mRegisters(3)_trace_cmd_max_t       $end
+$var real    1  aaaie  mRegisters(3)_trace_result_closest_t       $end
+$var real    1  aaaif  mRegisters(3)_trace_result_barycentric_u       $end
+$var real    1  aaaig  mRegisters(3)_trace_result_barycentric_v       $end
+$var real    1  aaaih  mRegisters(3)_trace_result_barycentric_w       $end
+$var real    1  aaaii  mRegisters(3)_trace_result_trig_v0_x       $end
+$var real    1  aaaij  mRegisters(3)_trace_result_trig_v0_y       $end
+$var real    1  aaaik  mRegisters(3)_trace_result_trig_v0_z       $end
+$var real    1  aaail  mRegisters(3)_trace_result_trig_v1_x       $end
+$var real    1  aaaim  mRegisters(3)_trace_result_trig_v1_y       $end
+$var real    1  aaain  mRegisters(3)_trace_result_trig_v1_z       $end
+$var real    1  aaaio  mRegisters(3)_trace_result_trig_v2_x       $end
+$var real    1  aaaip  mRegisters(3)_trace_result_trig_v2_y       $end
+$var real    1  aaaiq  mRegisters(3)_trace_result_trig_v2_z       $end
+$var real    1  aaair  mRegisters(3)_trace_result_trig_n0_x       $end
+$var real    1  aaais  mRegisters(3)_trace_result_trig_n0_y       $end
+$var real    1  aaait  mRegisters(3)_trace_result_trig_n0_z       $end
+$var real    1  aaaiu  mRegisters(3)_trace_result_trig_n1_x       $end
+$var real    1  aaaiv  mRegisters(3)_trace_result_trig_n1_y       $end
+$var real    1  aaaiw  mRegisters(3)_trace_result_trig_n1_z       $end
+$var real    1  aaaix  mRegisters(3)_trace_result_trig_n2_x       $end
+$var real    1  aaaiy  mRegisters(3)_trace_result_trig_n2_y       $end
+$var real    1  aaaiz  mRegisters(3)_trace_result_trig_n2_z       $end
+$var real    1  aaaja  mRegisters(3)_trace_result_trig_uv0_x       $end
+$var real    1  aaajb  mRegisters(3)_trace_result_trig_uv0_y       $end
+$var real    1  aaajc  mRegisters(3)_trace_result_trig_uv1_x       $end
+$var real    1  aaajd  mRegisters(3)_trace_result_trig_uv1_y       $end
+$var real    1  aaaje  mRegisters(3)_trace_result_trig_uv2_x       $end
+$var real    1  aaajf  mRegisters(3)_trace_result_trig_uv2_y       $end
+$var wire   15  aaajg  mRegisters(3)_trace_result_trig_cb_index [14:0]  $end
+$var wire    1  aaajh  mExecutingMultiCycle       $end
+$var wire    8  aaajr  next_code_address [7:0]  $end
+$var wire    1  aaajs  clk       $end
+$scope module FPU $end
+$var wire    1  aaaji  done       $end
+$var wire    1  aaajj  start       $end
+$var wire    1  aaajk  reset       $end
+$var wire    1  aaajl  clk_en       $end
+$var wire    1  aaajm  clk       $end
+$var real    1  aaajn  result       $end
+$var wire    5  aaajo  n [4:0]  $end
+$var real    1  aaajp  datab       $end
+$var real    1  aaajq  dataa       $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+b0 aaaaa
+r-107374176 aaaab
+r-107374176 aaaac
+r-107374176 aaaad
+r-107374176 aaaae
+r-107374176 aaaaf
+r-107374176 aaaag
+r-107374176 aaaah
+r-107374176 aaaai
+r-107374176 aaaaj
+r-107374176 aaaak
+r-107374176 aaaal
+r-107374176 aaaam
+r-107374176 aaaan
+r-107374176 aaaao
+r-107374176 aaaap
+r-107374176 aaaaq
+b0 aaaar
+b0 aaaas
+b0 aaaat
+r0 aaaau
+r0 aaaav
+r0 aaaaw
+0aaaax
+r0 aaaay
+r0 aaaaz
+r0 aaaba
+r0 aaabb
+r0 aaabc
+r0 aaabd
+r0 aaabe
+r0 aaabf
+r0 aaabg
+r0 aaabh
+r0 aaabi
+r0 aaabj
+r0 aaabk
+r0 aaabl
+r0 aaabm
+r0 aaabn
+r0 aaabo
+r0 aaabp
+r0 aaabq
+r0 aaabr
+r0 aaabs
+r0 aaabt
+r0 aaabu
+r0 aaabv
+r0 aaabw
+r0 aaabx
+r0 aaaby
+r0 aaabz
+r0 aaaca
+r0 aaacb
+r0 aaacc
+r0 aaacd
+r0 aaace
+r0 aaacf
+r0 aaacg
+r0 aaach
+b0 aaaci
+r-107374176 aaacj
+r-107374176 aaack
+r-107374176 aaacl
+r-107374176 aaacm
+r-107374176 aaacn
+r-107374176 aaaco
+r-107374176 aaacp
+r-107374176 aaacq
+r-107374176 aaacr
+r-107374176 aaacs
+r-107374176 aaact
+r-107374176 aaacu
+r-107374176 aaacv
+r-107374176 aaacw
+r-107374176 aaacx
+r-107374176 aaacy
+b0 aaacz
+b0 aaada
+b0 aaadb
+r0 aaadc
+r0 aaadd
+r0 aaade
+0aaadf
+r0 aaadg
+r0 aaadh
+r0 aaadi
+r0 aaadj
+r0 aaadk
+r0 aaadl
+r0 aaadm
+r0 aaadn
+r0 aaado
+r0 aaadp
+r0 aaadq
+r0 aaadr
+r0 aaads
+r0 aaadt
+r0 aaadu
+r0 aaadv
+r0 aaadw
+r0 aaadx
+r0 aaady
+r0 aaadz
+r0 aaaea
+r0 aaaeb
+r0 aaaec
+r0 aaaed
+r0 aaaee
+r0 aaaef
+r0 aaaeg
+r0 aaaeh
+r0 aaaei
+r0 aaaej
+r0 aaaek
+r0 aaael
+r0 aaaem
+r0 aaaen
+r0 aaaeo
+r0 aaaep
+b0 aaaeq
+r-107374176 aaaer
+r-107374176 aaaes
+r-107374176 aaaet
+r-107374176 aaaeu
+r-107374176 aaaev
+r-107374176 aaaew
+r-107374176 aaaex
+r-107374176 aaaey
+r-107374176 aaaez
+r-107374176 aaafa
+r-107374176 aaafb
+r-107374176 aaafc
+r-107374176 aaafd
+r-107374176 aaafe
+r-107374176 aaaff
+r-107374176 aaafg
+b0 aaafh
+b0 aaafi
+b0 aaafj
+r0 aaafk
+r0 aaafl
+r0 aaafm
+0aaafn
+r0 aaafo
+r0 aaafp
+r0 aaafq
+r0 aaafr
+r0 aaafs
+r0 aaaft
+r0 aaafu
+r0 aaafv
+r0 aaafw
+r0 aaafx
+r0 aaafy
+r0 aaafz
+r0 aaaga
+r0 aaagb
+r0 aaagc
+r0 aaagd
+r0 aaage
+r0 aaagf
+r0 aaagg
+r0 aaagh
+r0 aaagi
+r0 aaagj
+r0 aaagk
+r0 aaagl
+r0 aaagm
+r0 aaagn
+r0 aaago
+r0 aaagp
+r0 aaagq
+r0 aaagr
+r0 aaags
+r0 aaagt
+r0 aaagu
+r0 aaagv
+r0 aaagw
+r0 aaagx
+b0 aaagy
+r-107374176 aaagz
+r-107374176 aaaha
+r-107374176 aaahb
+r-107374176 aaahc
+r-107374176 aaahd
+r-107374176 aaahe
+r-107374176 aaahf
+r-107374176 aaahg
+r-107374176 aaahh
+r-107374176 aaahi
+r-107374176 aaahj
+r-107374176 aaahk
+r-107374176 aaahl
+r-107374176 aaahm
+r-107374176 aaahn
+r-107374176 aaaho
+b0 aaahp
+b0 aaahq
+b0 aaahr
+r0 aaahs
+r0 aaaht
+r0 aaahu
+0aaahv
+r0 aaahw
+r0 aaahx
+r0 aaahy
+r0 aaahz
+r0 aaaia
+r0 aaaib
+r0 aaaic
+r0 aaaid
+r0 aaaie
+r0 aaaif
+r0 aaaig
+r0 aaaih
+r0 aaaii
+r0 aaaij
+r0 aaaik
+r0 aaail
+r0 aaaim
+r0 aaain
+r0 aaaio
+r0 aaaip
+r0 aaaiq
+r0 aaair
+r0 aaais
+r0 aaait
+r0 aaaiu
+r0 aaaiv
+r0 aaaiw
+r0 aaaix
+r0 aaaiy
+r0 aaaiz
+r0 aaaja
+r0 aaajb
+r0 aaajc
+r0 aaajd
+r0 aaaje
+r0 aaajf
+b0 aaajg
+0aaajh
+0aaaji
+0aaajj
+0aaajk
+0aaajl
+1aaajm
+r0 aaajn
+b0 aaajo
+r0 aaajp
+r0 aaajq
+b1 aaajr
+1aaajs
+$end
+
+#5000
+0aaajm
+0aaajs
+
+#10000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+r1.043013586610186e-08 aaaad
+r1.043013586610186e-08 aaaae
+r1.043013586610186e-08 aaaaf
+r1.043013586610186e-08 aaaag
+r1.043013586610186e-08 aaaah
+r1.043013586610186e-08 aaaai
+r1.043013586610186e-08 aaaaj
+r1.043013586610186e-08 aaaak
+r1.043013586610186e-08 aaaal
+r1.043013586610186e-08 aaaam
+r1.043013586610186e-08 aaaan
+r1.043013586610186e-08 aaaao
+r1.043013586610186e-08 aaaap
+r1.043013586610186e-08 aaaaq
+b1 aaaar
+1aaajm
+1aaajs
+
+#15000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+r1.043013586610186e-08 aaacj
+r1.043013586610186e-08 aaack
+r1.043013586610186e-08 aaacl
+r1.043013586610186e-08 aaacm
+r1.043013586610186e-08 aaacn
+r1.043013586610186e-08 aaaco
+r1.043013586610186e-08 aaacp
+r1.043013586610186e-08 aaacq
+r1.043013586610186e-08 aaacr
+r1.043013586610186e-08 aaacs
+r1.043013586610186e-08 aaact
+r1.043013586610186e-08 aaacu
+r1.043013586610186e-08 aaacv
+r1.043013586610186e-08 aaacw
+r1.043013586610186e-08 aaacx
+r1.043013586610186e-08 aaacy
+r1.043013586610186e-08 aaaer
+r1.043013586610186e-08 aaaes
+r1.043013586610186e-08 aaaet
+r1.043013586610186e-08 aaaeu
+r1.043013586610186e-08 aaaev
+r1.043013586610186e-08 aaaew
+r1.043013586610186e-08 aaaex
+r1.043013586610186e-08 aaaey
+r1.043013586610186e-08 aaaez
+r1.043013586610186e-08 aaafa
+r1.043013586610186e-08 aaafb
+r1.043013586610186e-08 aaafc
+r1.043013586610186e-08 aaafd
+r1.043013586610186e-08 aaafe
+r1.043013586610186e-08 aaaff
+r1.043013586610186e-08 aaafg
+r1.043013586610186e-08 aaagz
+r1.043013586610186e-08 aaaha
+r1.043013586610186e-08 aaahb
+r1.043013586610186e-08 aaahc
+r1.043013586610186e-08 aaahd
+r1.043013586610186e-08 aaahe
+r1.043013586610186e-08 aaahf
+r1.043013586610186e-08 aaahg
+r1.043013586610186e-08 aaahh
+r1.043013586610186e-08 aaahi
+r1.043013586610186e-08 aaahj
+r1.043013586610186e-08 aaahk
+r1.043013586610186e-08 aaahl
+r1.043013586610186e-08 aaahm
+r1.043013586610186e-08 aaahn
+r1.043013586610186e-08 aaaho
+0aaajm
+0aaajs
+
+#20000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaajm
+1aaajs
+
+#25000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#30000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+b10 aaaar
+r-107374176 aaacj
+r-107374176 aaack
+r-107374176 aaacl
+r-107374176 aaacm
+r-107374176 aaacn
+r-107374176 aaaco
+r-107374176 aaacp
+r-107374176 aaacq
+r-107374176 aaacr
+r-107374176 aaacs
+r-107374176 aaact
+r-107374176 aaacu
+r-107374176 aaacv
+r-107374176 aaacw
+r-107374176 aaacx
+r-107374176 aaacy
+r-107374176 aaaer
+r-107374176 aaaes
+r-107374176 aaaet
+r-107374176 aaaeu
+r-107374176 aaaev
+r-107374176 aaaew
+r-107374176 aaaex
+r-107374176 aaaey
+r-107374176 aaaez
+r-107374176 aaafa
+r-107374176 aaafb
+r-107374176 aaafc
+r-107374176 aaafd
+r-107374176 aaafe
+r-107374176 aaaff
+r-107374176 aaafg
+r-107374176 aaagz
+r-107374176 aaaha
+r-107374176 aaahb
+r-107374176 aaahc
+r-107374176 aaahd
+r-107374176 aaahe
+r-107374176 aaahf
+r-107374176 aaahg
+r-107374176 aaahh
+r-107374176 aaahi
+r-107374176 aaahj
+r-107374176 aaahk
+r-107374176 aaahl
+r-107374176 aaahm
+r-107374176 aaahn
+r-107374176 aaaho
+1aaajh
+1aaajj
+1aaajl
+1aaajm
+b11101 aaajo
+r1 aaajp
+b10 aaajr
+1aaajs
+
+#35000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+r1.043013586610186e-08 aaacj
+r1.043013586610186e-08 aaack
+r1.043013586610186e-08 aaacl
+r1.043013586610186e-08 aaacm
+r1.043013586610186e-08 aaacn
+r1.043013586610186e-08 aaaco
+r1.043013586610186e-08 aaacp
+r1.043013586610186e-08 aaacq
+r1.043013586610186e-08 aaacr
+r1.043013586610186e-08 aaacs
+r1.043013586610186e-08 aaact
+r1.043013586610186e-08 aaacu
+r1.043013586610186e-08 aaacv
+r1.043013586610186e-08 aaacw
+r1.043013586610186e-08 aaacx
+r1.043013586610186e-08 aaacy
+r1.043013586610186e-08 aaaer
+r1.043013586610186e-08 aaaes
+r1.043013586610186e-08 aaaet
+r1.043013586610186e-08 aaaeu
+r1.043013586610186e-08 aaaev
+r1.043013586610186e-08 aaaew
+r1.043013586610186e-08 aaaex
+r1.043013586610186e-08 aaaey
+r1.043013586610186e-08 aaaez
+r1.043013586610186e-08 aaafa
+r1.043013586610186e-08 aaafb
+r1.043013586610186e-08 aaafc
+r1.043013586610186e-08 aaafd
+r1.043013586610186e-08 aaafe
+r1.043013586610186e-08 aaaff
+r1.043013586610186e-08 aaafg
+r1.043013586610186e-08 aaagz
+r1.043013586610186e-08 aaaha
+r1.043013586610186e-08 aaahb
+r1.043013586610186e-08 aaahc
+r1.043013586610186e-08 aaahd
+r1.043013586610186e-08 aaahe
+r1.043013586610186e-08 aaahf
+r1.043013586610186e-08 aaahg
+r1.043013586610186e-08 aaahh
+r1.043013586610186e-08 aaahi
+r1.043013586610186e-08 aaahj
+r1.043013586610186e-08 aaahk
+r1.043013586610186e-08 aaahl
+r1.043013586610186e-08 aaahm
+r1.043013586610186e-08 aaahn
+r1.043013586610186e-08 aaaho
+0aaajm
+0aaajs
+
+#40000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaajm
+1aaajs
+
+#45000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#50000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaajm
+1aaajs
+
+#55000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#60000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaajm
+1aaajs
+
+#65000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#70000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaajm
+1aaajs
+
+#75000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#80000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+1aaaji
+1aaajm
+r1 aaajn
+1aaajs
+
+#85000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#90000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajh
+0aaajj
+1aaajm
+1aaajs
+
+#95000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#100000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+b11 aaaar
+r-107374176 aaacj
+r-107374176 aaack
+r-107374176 aaacl
+r-107374176 aaacm
+r-107374176 aaacn
+r-107374176 aaaco
+r-107374176 aaacp
+r-107374176 aaacq
+r-107374176 aaacr
+r-107374176 aaacs
+r-107374176 aaact
+r-107374176 aaacu
+r-107374176 aaacv
+r-107374176 aaacw
+r-107374176 aaacx
+r-107374176 aaacy
+r-107374176 aaaer
+r-107374176 aaaes
+r-107374176 aaaet
+r-107374176 aaaeu
+r-107374176 aaaev
+r-107374176 aaaew
+r-107374176 aaaex
+r-107374176 aaaey
+r-107374176 aaaez
+r-107374176 aaafa
+r-107374176 aaafb
+r-107374176 aaafc
+r-107374176 aaafd
+r-107374176 aaafe
+r-107374176 aaaff
+r-107374176 aaafg
+r-107374176 aaagz
+r-107374176 aaaha
+r-107374176 aaahb
+r-107374176 aaahc
+r-107374176 aaahd
+r-107374176 aaahe
+r-107374176 aaahf
+r-107374176 aaahg
+r-107374176 aaahh
+r-107374176 aaahi
+r-107374176 aaahj
+r-107374176 aaahk
+r-107374176 aaahl
+r-107374176 aaahm
+r-107374176 aaahn
+r-107374176 aaaho
+1aaajh
+1aaajj
+1aaajm
+r1 aaajq
+b11 aaajr
+1aaajs
+
+#105000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+r1.043013586610186e-08 aaacj
+r1.043013586610186e-08 aaack
+r1.043013586610186e-08 aaacl
+r1.043013586610186e-08 aaacm
+r1.043013586610186e-08 aaacn
+r1.043013586610186e-08 aaaco
+r1.043013586610186e-08 aaacp
+r1.043013586610186e-08 aaacq
+r1.043013586610186e-08 aaacr
+r1.043013586610186e-08 aaacs
+r1.043013586610186e-08 aaact
+r1.043013586610186e-08 aaacu
+r1.043013586610186e-08 aaacv
+r1.043013586610186e-08 aaacw
+r1.043013586610186e-08 aaacx
+r1.043013586610186e-08 aaacy
+r1.043013586610186e-08 aaaer
+r1.043013586610186e-08 aaaes
+r1.043013586610186e-08 aaaet
+r1.043013586610186e-08 aaaeu
+r1.043013586610186e-08 aaaev
+r1.043013586610186e-08 aaaew
+r1.043013586610186e-08 aaaex
+r1.043013586610186e-08 aaaey
+r1.043013586610186e-08 aaaez
+r1.043013586610186e-08 aaafa
+r1.043013586610186e-08 aaafb
+r1.043013586610186e-08 aaafc
+r1.043013586610186e-08 aaafd
+r1.043013586610186e-08 aaafe
+r1.043013586610186e-08 aaaff
+r1.043013586610186e-08 aaafg
+r1.043013586610186e-08 aaagz
+r1.043013586610186e-08 aaaha
+r1.043013586610186e-08 aaahb
+r1.043013586610186e-08 aaahc
+r1.043013586610186e-08 aaahd
+r1.043013586610186e-08 aaahe
+r1.043013586610186e-08 aaahf
+r1.043013586610186e-08 aaahg
+r1.043013586610186e-08 aaahh
+r1.043013586610186e-08 aaahi
+r1.043013586610186e-08 aaahj
+r1.043013586610186e-08 aaahk
+r1.043013586610186e-08 aaahl
+r1.043013586610186e-08 aaahm
+r1.043013586610186e-08 aaahn
+r1.043013586610186e-08 aaaho
+0aaajm
+0aaajs
+
+#110000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajh
+0aaajj
+1aaajm
+1aaajs
+
+#115000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+0aaajm
+0aaajs
+
+#120000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+b100 aaaar
+r-107374176 aaacj
+r-107374176 aaack
+r-107374176 aaacl
+r-107374176 aaacm
+r-107374176 aaacn
+r-107374176 aaaco
+r-107374176 aaacp
+r-107374176 aaacq
+r-107374176 aaacr
+r-107374176 aaacs
+r-107374176 aaact
+r-107374176 aaacu
+r-107374176 aaacv
+r-107374176 aaacw
+r-107374176 aaacx
+r-107374176 aaacy
+r-107374176 aaaer
+r-107374176 aaaes
+r-107374176 aaaet
+r-107374176 aaaeu
+r-107374176 aaaev
+r-107374176 aaaew
+r-107374176 aaaex
+r-107374176 aaaey
+r-107374176 aaaez
+r-107374176 aaafa
+r-107374176 aaafb
+r-107374176 aaafc
+r-107374176 aaafd
+r-107374176 aaafe
+r-107374176 aaaff
+r-107374176 aaafg
+r-107374176 aaagz
+r-107374176 aaaha
+r-107374176 aaahb
+r-107374176 aaahc
+r-107374176 aaahd
+r-107374176 aaahe
+r-107374176 aaahf
+r-107374176 aaahg
+r-107374176 aaahh
+r-107374176 aaahi
+r-107374176 aaahj
+r-107374176 aaahk
+r-107374176 aaahl
+r-107374176 aaahm
+r-107374176 aaahn
+r-107374176 aaaho
+1aaajh
+1aaajj
+1aaajm
+b100 aaajr
+1aaajs
+
+#125000
+r0 aaaab
+r-1.694739530317379e+38 aaaac
+r1.043013586610186e-08 aaacj
+r1.043013586610186e-08 aaack
+r1.043013586610186e-08 aaacl
+r1.043013586610186e-08 aaacm
+r1.043013586610186e-08 aaacn
+r1.043013586610186e-08 aaaco
+r1.043013586610186e-08 aaacp
+r1.043013586610186e-08 aaacq
+r1.043013586610186e-08 aaacr
+r1.043013586610186e-08 aaacs
+r1.043013586610186e-08 aaact
+r1.043013586610186e-08 aaacu
+r1.043013586610186e-08 aaacv
+r1.043013586610186e-08 aaacw
+r1.043013586610186e-08 aaacx
+r1.043013586610186e-08 aaacy
+r1.043013586610186e-08 aaaer
+r1.043013586610186e-08 aaaes
+r1.043013586610186e-08 aaaet
+r1.043013586610186e-08 aaaeu
+r1.043013586610186e-08 aaaev
+r1.043013586610186e-08 aaaew
+r1.043013586610186e-08 aaaex
+r1.043013586610186e-08 aaaey
+r1.04

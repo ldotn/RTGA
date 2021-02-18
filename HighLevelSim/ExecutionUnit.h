@@ -1,42 +1,8 @@
 #pragma once
-#include <systemc.h>
+#include <systemc.h> 
 #include "SharedTypes.h"
-
-struct FetchUnit : sc_module
-{
-	sc_in_clk clk;
-
-	SC_CTOR(FetchUnit)
-	{
-		SC_CTHREAD(Step, clk.pos());
-	}
-
-	void Step();
-};
-
-struct DecodeUnit : sc_module
-{
-	sc_in_clk clk;
-
-	SC_CTOR(DecodeUnit)
-	{
-		SC_CTHREAD(Step, clk.pos());
-	}
-
-	void Step();
-};
-
-struct ALU : sc_module
-{
-	sc_in_clk clk;
-
-	SC_CTOR(ALU)
-	{
-		SC_CTHREAD(Step, clk.pos());
-	}
-
-	void Step();
-};
+#include "NiosFPU.h"
+#include "ISA.h"
 
 struct ExecutionUnit : sc_module
 {
@@ -65,24 +31,56 @@ struct ExecutionUnit : sc_module
 		begin_signal("begin_signal"),
 		finished_signal("finished_signal"),
 
-		mFetch("Fetch"),
-		mDecode("Decode"),
-		mALU("ALU")
+		mFPU("FPU")
 	{
 		SC_CTHREAD(Step, clk.pos());
 
-		mFetch.clk(clk);
-		mDecode.clk(clk);
-		mALU.clk(clk);
+		mFPU.clk(clk);
+		mFPU.dataa(fpu_dataa);
+		mFPU.datab(fpu_datab);
+		mFPU.n(fpu_n);
+		mFPU.result(fpu_result);
+		mFPU.reset(fpu_reset);
+		mFPU.clk_en(fpu_clk_en);
+		mFPU.start(fpu_start);
+		mFPU.done(fpu_done);
 	}
 
 	void Step();
-private:
-	int mIP;
-	int mCurrentPixelIndex; // Inside the quad
-	PixelCoord mCurrentQuadXY;
 
-	FetchUnit  mFetch;
-	DecodeUnit mDecode;
-	ALU        mALU;
+	void BindTrace()
+	{
+		TRACE_VAR(gTraceFile, clk);
+		TRACE_VAR(gTraceFile, mCurrentPixelIndex);
+		TRACE_VAR(gTraceFile, mRegisters[0]);
+		TRACE_VAR(gTraceFile, mRegisters[1]);
+		TRACE_VAR(gTraceFile, mRegisters[2]);
+		TRACE_VAR(gTraceFile, mRegisters[3]);
+		TRACE_VAR(gTraceFile, next_code_address);
+		TRACE_VAR(gTraceFile, mExecutingMultiCycle);
+
+		mFPU.BindTrace();
+	}
+
+	//  Taking a page from ARM here.Instead of storing operation constants on the instruction,
+	// store them on a small buffer filled by the compiler and index that
+	float mOpConstants[kOpConstantsPerEU];
+private:
+	bool mExecutingMultiCycle;
+
+	NiosFPU    mFPU;
+	sc_signal<float> fpu_dataa;
+	sc_signal<float> fpu_datab;
+	sc_signal<sc_uint<5>> fpu_n;
+	sc_signal<float> fpu_result;
+	sc_signal<bool> fpu_reset;
+	sc_signal<bool> fpu_clk_en;
+	sc_signal<bool> fpu_start;
+	sc_signal<bool> fpu_done;
+
+	Instruction mCurrentInstruction;
+	int mCurrentPixelIndex;
+	float mCurrentPixelIndexFloat; //It's only 2 bits but stored as a float so it can be operated upon 
+	float mCurrentQuadXY[2];
+	RegisterFile mRegisters[4]; // One file per pixel of the quad
 };

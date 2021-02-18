@@ -7,6 +7,8 @@ using namespace sc_core;
 // Typedefing all this to centralize the definitions and data widths
 typedef sc_int<kCodeAddressBits> CodeAddress;
 typedef sc_int<kMemoryAddressBits> MemoryAddress;
+typedef sc_int<kTexelOffsetBits> TextureOffset;
+typedef sc_int<kConstantBufferIndexBits> CBIndex;
 
 struct Pixel 
 {
@@ -78,6 +80,5 @@ inline ostream& operator<<(ostream& os, PixelCoord const& coord)
 	return os;
 }
 
-typedef float Real; // So I can easily test float vs fixed point later on
-
-typedef int Instruction; // TODO : Change this into a real struct
+constexpr int kfloatBitSize = 8 * sizeof(float);
+extern sc_trace_file * gTraceFile;

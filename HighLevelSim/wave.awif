@@ -1,0 +1,90 @@
+init ;
+
+header  3 "SystemC 2.3.4_pub_rev_20191203-Accellera --- Jan 30 2021 01:08:30" ;
+
+comment "ASCII WIF file produced on date:  Jan 30, 2021       09:02:09" ;
+comment "Created by SystemC 2.3.4_pub_rev_20191203-Accellera --- Jan 30 2021 01:08:30" ;
+comment "Convert this file to binary WIF format using a2wif" ;
+
+type scalar "BIT" enum '0', '1' ;
+type scalar "MVL" enum '0', '1', 'X', 'Z', '?' ;
+
+declare  O0   "next_ip"  BIT  0 7 variable ;
+start_trace O0 ;
+declare  O1   "clk"  BIT  variable ;
+start_trace O1 ;
+comment "All initial values are dumped below at time 0 sec = 0 timescale units." ;
+assign O0 "00000000" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000010" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000011" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000100" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000101" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000110" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00000111" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00001000" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+
+delta_time 500 ;
+assign O0 "00001001" ;
+assign O1 '1' ;
+
+delta_time 500 ;
+assign O1 '0' ;
+

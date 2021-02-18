@@ -9,16 +9,22 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Utilities">
+    <Filter Include="Architecture Definitions">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{917fb19d-cd91-417d-8b70-d0003374cb54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="ExecutionUnit.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="NiosFPU.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -27,10 +33,19 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="SharedTypes.h">
-      <Filter>Utilities</Filter>
+      <Filter>Architecture Definitions</Filter>
     </ClInclude>
     <ClInclude Include="GlobalConstants.h">
-      <Filter>Utilities</Filter>
+      <Filter>Architecture Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ISA.h">
+      <Filter>Architecture Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="NiosFPU.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

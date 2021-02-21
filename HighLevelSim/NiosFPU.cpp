@@ -4,6 +4,7 @@
 void NiosFPU::Step()
 {
 	// initial
+	done.write(0);
 	auto resetable_wait = [&](int Clocks)
 	{
 		for (int i = 0; i < Clocks; ++i)
@@ -20,6 +21,7 @@ void NiosFPU::Step()
 	while (true)
 	{
 		wait();
+		done.write(0);
 
 		if (clk_en.read())
 		{

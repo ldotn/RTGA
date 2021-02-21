@@ -34,6 +34,7 @@ struct ExecutionUnit : sc_module
 		mFPU("FPU")
 	{
 		SC_CTHREAD(Step, clk.pos());
+		SC_CTHREAD(StepNegEdge, clk.neg());
 
 		mFPU.clk(clk);
 		mFPU.dataa(fpu_dataa);
@@ -47,6 +48,7 @@ struct ExecutionUnit : sc_module
 	}
 
 	void Step();
+	void StepNegEdge();
 
 	void BindTrace()
 	{
@@ -58,6 +60,7 @@ struct ExecutionUnit : sc_module
 		TRACE_VAR(gTraceFile, mRegisters[3]);
 		TRACE_VAR(gTraceFile, next_code_address);
 		TRACE_VAR(gTraceFile, mExecutingMultiCycle);
+		TRACE_VAR(gTraceFile, mStartExecutingMultiCycle);
 
 		mFPU.BindTrace();
 	}
@@ -66,6 +69,7 @@ struct ExecutionUnit : sc_module
 	// store them on a small buffer filled by the compiler and index that
 	float mOpConstants[kOpConstantsPerEU];
 private:
+	bool mStartExecutingMultiCycle;
 	bool mExecutingMultiCycle;
 
 	NiosFPU    mFPU;

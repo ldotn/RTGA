@@ -73,7 +73,7 @@ int main(int argc, const char* argv[])
 	gTraceFile = sc_create_vcd_trace_file("wave");
 	eu0.BindTrace();
 
-	sc_start(1, SC_MS);
+	sc_start(10, SC_US);
 
 	sc_close_vcd_trace_file(gTraceFile);
 

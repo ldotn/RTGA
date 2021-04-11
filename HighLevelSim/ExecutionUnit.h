@@ -13,6 +13,8 @@ struct ExecutionUnit : sc_module
 
 	sc_out<MemoryAddress> memory_request_address;
 	sc_out<bool> request_memory_read;
+	sc_in<bool> memory_request_finished;
+	sc_in<uint32_t> memory_read_data;
 
 	sc_in<PixelCoord> next_block_xy;
 	sc_out<PixelQuad> out_quad;
@@ -71,6 +73,7 @@ struct ExecutionUnit : sc_module
 private:
 	bool mStartExecutingMultiCycle;
 	bool mExecutingMultiCycle;
+	bool mWaitingForSample;
 
 	NiosFPU    mFPU;
 	sc_signal<float> fpu_dataa;
@@ -85,6 +88,5 @@ private:
 	Instruction mCurrentInstruction;
 	int mCurrentPixelIndex;
 	float mCurrentPixelIndexFloat; //It's only 2 bits but stored as a float so it can be operated upon 
-	float mCurrentQuadXY[2];
 	RegisterFile mRegisters[4]; // One file per pixel of the quad
 };

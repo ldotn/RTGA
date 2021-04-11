@@ -8,8 +8,6 @@
 		4 sets of this registers, one per pixel of the quad
 			- float          r[kRegistersPerThread]
 			- CodeAddress   IP
-			- MemoryAddress TexAddress
-			- TextureOffset SampleOffset
 			- float         TexSampleResult[3]
 			- bool          CmpResult
 			- TraceCommand  CurrentTraceCommand
@@ -24,7 +22,7 @@
 					* float Vertex[3][3]
 					* float Normal[3][3]
 					* float UV[3][2]
-					* CBIndex UserDataIndex : Allows to have per triangle data (usually a material). Stored on the cbuffer
+					* float UserDataIndex : Allows to have per triangle data (usually a material). Stored on the cbuffer
 		One per EU (on the program logic it's one per Quad)
 			- float CurrentPixelIdx : It's only 2 bits but stored as a float so it can be operated upon 
 			- float QuadXY[2]  : Read only
@@ -53,7 +51,7 @@
 			* select : r[Out] = CmpResult ? r[InA] : r[InB]
 			* set : r[Out] = OpConstants[Constant]
 		- Constants
-			* cb_load : Out = ConstantBuffer[Index];
+			* cb_load : r[Out] = ConstantBuffer[r[Index]];
 		- Flow control
 			* cmp_lt : CmpResult = (A < B)
 			* cmp_le : CmpResult = (A <= B)
@@ -65,10 +63,17 @@
 		- Special
 			* finish : Indicates that the current pixel is finished.
 				Moves to the next pixel on the quad. If the quad its finished, notifies the pixel buffer
-			* request_sample : starts an async memory read
-				* The textures offset base address and row stride are stored on the constant buffer		 
-				* When finished, TexSampleResult = Memory[TexAddress + kBytesPerPixel * SampleAddress]
-			* wait_sample : waits until the sample result is on TexSampleResult
+			* request_sample r0, r1 : starts an async memory read 
+				* r0 and r1 must be positive integers less than 2^24
+					* Integers on that range are stored accurately and can be easily converted to ints
+					*   I_24 = (mantissa >> (23 - exp - 127) | (1 << (exp - 127))
+				* r0 is the texture start address, r1 the texture offset
+				* Min texture size is 16 bytes (2x2 pixels), max texture size is 64 MB and sample (pixel) size is 4 bytes
+				* When finished, memory_read_data = MemoryLoad32(4 * r0 + r1) // Memory is indexed every 4 bytes
+			* wait_sample FORMAT: waits until the sample result is on memory_read_data and converts it
+				* FORMAT can be r8g8b8a8_unorm, r8g8b8_unorm, r16g16_unorm, or f32
+				* TexSampleResult = Convert(FORMAT, memory_read_data) 
+				I could move to the next pixel at this point, but keeping it simple for now because that requires more complex logic when you arrive to another memory request
 			* trace : Requests a trace op. 
 				Pauses execution and moves to the next pixel on the quad. If it's the last pixel of the quad it just waits.
 			* nop : No-Op, does nothing. Should only be used at the start so the first instruction can be fetched
@@ -98,7 +103,7 @@ struct Triangle
 	float Vertex[3][3];
 	float Normal[3][3];
 	float UV[3][2];
-	CBIndex UserDataIndex; // Allows to have per triangle data(usually a material).Stored on the cbuffer
+	float UserDataIndex; // Allows to have per triangle data(usually a material). Stored on the cbuffer
 };
 
 struct TraceResult
@@ -112,28 +117,28 @@ struct RegisterFile
 {
 	RegisterFile()
 	{
-		memset(&r, 0, sizeof(float) * kRegistersPerThread);
-		memset(&TexSampleResult, 0, sizeof(float) * 3);
-		memset(&CurrentTraceCommand, 0, sizeof(TraceCommand));
-		memset(&HitData.BarycentricHit, 0, sizeof(float)*3);
-		memset(&HitData.HitTriangle, 0, sizeof(float)*(3*3 + 3*3 + 3*2));
+		memset(&Bank.Physical, 0, sizeof(float) * kRegisterBankSize);
 		
 		IP = 0;
-		TexAddress = 0;
-		SampleOffset = 0;
 		CmpResult = 0;
-		HitData.ClosestHitT = 0;
-		HitData.HitTriangle.UserDataIndex = 0;
 	}
 
-	float         r[kRegistersPerThread];
+	union
+	{
+		struct
+		{
+			float r[kRegistersPerThread];
+			float TexSampleResult[3];
+			TraceCommand  CurrentTraceCommand;
+			TraceResult   HitData;
+			float QuadXY[2];
+		} Logical;
+
+		float Physical[kRegisterBankSize]; // I'm duplicating the QuadXY registers this way, for now let's keep it simple
+	} Bank;
+	
 	CodeAddress   IP;
-	MemoryAddress TexAddress;
-	TextureOffset SampleOffset;
-	float         TexSampleResult[3];
 	bool          CmpResult;
-	TraceCommand  CurrentTraceCommand;
-	TraceResult   HitData;
 };
 
 inline void sc_trace(sc_trace_file* file, const TraceCommand& cmd, const std::string& str)
@@ -192,17 +197,15 @@ inline void sc_trace(sc_trace_file* file, const TraceResult& result, const std::
 inline void sc_trace(sc_trace_file* file, const RegisterFile& regs, const std::string& str)
 {
 	int counter = 0;
-	for(float r : regs.r)
+	for(float r : regs.Bank.Logical.r)
 		sc_trace(file, r, str + "_r" + std::to_string(counter++));
 	sc_trace(file, regs.IP, str + "_ip");
-	sc_trace(file, regs.TexAddress, str + "_tex_address");
-	sc_trace(file, regs.SampleOffset, str + "_sample_offset");
-	sc_trace(file, regs.TexSampleResult[0], str + "_tex_r");
-	sc_trace(file, regs.TexSampleResult[1], str + "_tex_g");
-	sc_trace(file, regs.TexSampleResult[2], str + "_tex_b");
+	sc_trace(file, regs.Bank.Logical.TexSampleResult[0], str + "_tex_r");
+	sc_trace(file, regs.Bank.Logical.TexSampleResult[1], str + "_tex_g");
+	sc_trace(file, regs.Bank.Logical.TexSampleResult[2], str + "_tex_b");
 	sc_trace(file, regs.CmpResult, str + "_cmp");
-	sc_trace(file, regs.CurrentTraceCommand, str + "_trace_cmd");
-	sc_trace(file, regs.HitData, str + "_trace_result");
+	sc_trace(file, regs.Bank.Logical.CurrentTraceCommand, str + "_trace_cmd");
+	sc_trace(file, regs.Bank.Logical.HitData, str + "_trace_result");
 }
 
 struct InstructionOpcode
@@ -295,7 +298,7 @@ struct Instruction
 		{
 			uint32_t op : InstructionOpcode::kBits;
 			uint32_t r_out : kRegisterIndexBits;
-			uint32_t cb_index : kConstantBufferIndexBits;
+			uint32_t r_index : kRegisterIndexBits;
 		} ConstantBuffer;
 
 		/*cmp_lt,
@@ -328,11 +331,27 @@ struct Instruction
 			static constexpr int kBits = InstructionOpcode::kBits + kCodeAddressBits;
 		} Jump;
 
-		// finish, trace, request_sample
+		// finish, trace
 		struct
 		{
 			uint32_t op : InstructionOpcode::kBits;
 		} Signal;
+
+
+		// request_sample
+		struct
+		{
+			uint32_t op : InstructionOpcode::kBits;
+			uint32_t r_base : kRegisterIndexBits;
+			uint32_t r_offset : kRegisterIndexBits;
+		} Sample;
+
+		// wait_sample
+		struct
+		{
+			uint32_t op : InstructionOpcode::kBits;
+			uint32_t format : TextureFormat::kBits;
+		} WaitSample;
 
 		// Undecoded instruction, just a way to get the op
 		struct

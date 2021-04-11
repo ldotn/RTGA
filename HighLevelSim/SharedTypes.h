@@ -4,15 +4,28 @@
 
 using namespace sc_core;
 
+inline uint32_t as_uint24(float x)
+{
+	assert(x >= 0 && x < (1 << 24));
+
+	uint32_t raw = *(uint32_t*)&x;
+
+	// On verilog this can be done without actual ops
+	uint32_t mantissa = raw & ((1 << 23) - 1);
+	uint32_t exp = raw & (255 << 22);
+
+	// Bit hackery! Ints up to 2^24 are accurately stored on floats and as such can be easily converted back
+	return mantissa >> (23 - exp - 127) | (1 << (exp - 127));
+}
+
 // Typedefing all this to centralize the definitions and data widths
-typedef sc_int<kCodeAddressBits> CodeAddress;
-typedef sc_int<kMemoryAddressBits> MemoryAddress;
-typedef sc_int<kTexelOffsetBits> TextureOffset;
-typedef sc_int<kConstantBufferIndexBits> CBIndex;
+typedef sc_uint<kCodeAddressBits> CodeAddress;
+typedef sc_uint<kMemoryAddressBits> MemoryAddress;
+typedef sc_uint<kConstantBufferIndexBits> CBIndex;
 
 struct Pixel 
 {
-	sc_int<kPixelChannelBits> r, g, b;
+	sc_uint<8> r, g, b;
 
 	bool operator==(const Pixel&) const = default;
 };
@@ -62,8 +75,8 @@ inline ostream& operator<<(ostream& os, PixelQuad const& quad)
 
 struct PixelCoord
 {
-	sc_int<kPixelCoordBits> x;
-	sc_int<kPixelCoordBits> y;
+	sc_uint<kPixelCoordBits> x;
+	sc_uint<kPixelCoordBits> y;
 
 	bool operator==(const PixelCoord&) const = default;
 };

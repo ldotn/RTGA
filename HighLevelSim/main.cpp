@@ -42,7 +42,6 @@ int main(int argc, const char* argv[])
 	sc_clock clk("Clock", 10, SC_NS, 0.5, 0.0, SC_NS);
 
 	ExecutionUnit eu0("EU0");
-
 	eu0.clk(clk); 
 	eu0.current_instruction(current_instruction); 
 	eu0.next_code_address(next_code_address); 

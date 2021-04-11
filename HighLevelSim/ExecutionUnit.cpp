@@ -42,6 +42,7 @@ void ExecutionUnit::Step()
 	mExecutingMultiCycle = false;
 	mStartExecutingMultiCycle = false;
 	mCurrentInstruction.Raw.op = InstructionOpcode::nop;
+	mWaitingForSample = false;
 
 	// always @(posedge clk)
 	while (true)
@@ -53,16 +54,16 @@ void ExecutionUnit::Step()
 			 << " fpu_datab : " << fpu_datab
 			 << " fpu_result : " << fpu_result
 			 << " fpu_done : " << fpu_done
-			 << "\n r[0] : " << mRegisters[mCurrentPixelIndex].r[0]
-			 << " r[1] : " << mRegisters[mCurrentPixelIndex].r[1]
-			 << " r[2] : " << mRegisters[mCurrentPixelIndex].r[2]
-			 << " r[3] : " << mRegisters[mCurrentPixelIndex].r[3]
+			 << "\n r[0] : " << mRegisters[mCurrentPixelIndex].Bank.Physical[0]
+			 << " r[1] : " << mRegisters[mCurrentPixelIndex].Bank.Physical[1]
+			 << " r[2] : " << mRegisters[mCurrentPixelIndex].Bank.Physical[2]
+			 << " r[3] : " << mRegisters[mCurrentPixelIndex].Bank.Physical[3]
 			 << endl;
 		wait();
 
 		if (mRegisters[mCurrentPixelIndex].IP != kHaltCodeAddress)
 		{
-			if (!mExecutingMultiCycle || (mExecutingMultiCycle && fpu_done))
+			if (!mExecutingMultiCycle || (mExecutingMultiCycle && fpu_done) || (mWaitingForSample && memory_request_finished))
 			{
 				Instruction next_inst = current_instruction.read();
 				mRegisters[mCurrentPixelIndex].IP++;
@@ -73,7 +74,7 @@ void ExecutionUnit::Step()
 					// Check execution status
 					if (fpu_done)
 					{
-						mRegisters[mCurrentPixelIndex].r[mCurrentInstruction.Arithmetic.r_out] = fpu_result;
+						mRegisters[mCurrentPixelIndex].Bank.Physical[mCurrentInstruction.Arithmetic.r_out] = fpu_result;
 					}
 
 					// Write out the FPU result (comb ops only)
@@ -84,7 +85,7 @@ void ExecutionUnit::Step()
 					case InstructionOpcode::max:
 					case InstructionOpcode::neg:
 					case InstructionOpcode::abs:
-						mRegisters[mCurrentPixelIndex].r[mCurrentInstruction.Arithmetic.r_out] = fpu_result;
+						mRegisters[mCurrentPixelIndex].Bank.Physical[mCurrentInstruction.Arithmetic.r_out] = fpu_result;
 						break;
 
 					case InstructionOpcode::cmp_lt:
@@ -117,10 +118,10 @@ void ExecutionUnit::Step()
 						}
 						else
 						{
-							fpu_datab = mRegisters[mCurrentPixelIndex].r[next_inst.Arithmetic.r_b];
+							fpu_datab = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Arithmetic.r_b];
 						}
 
-						fpu_dataa = mRegisters[mCurrentPixelIndex].r[next_inst.Arithmetic.r_a];
+						fpu_dataa = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Arithmetic.r_a];
 						switch (next_inst.Raw.op)
 						{
 						case InstructionOpcode::add:
@@ -147,7 +148,7 @@ void ExecutionUnit::Step()
 					case InstructionOpcode::abs:
 					{
 						fpu_clk_en = 1;
-						fpu_dataa = mRegisters[mCurrentPixelIndex].r[next_inst.Arithmetic.r_a];
+						fpu_dataa = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Arithmetic.r_a];
 						switch (next_inst.Raw.op)
 						{
 						case InstructionOpcode::sqrt:
@@ -198,10 +199,10 @@ void ExecutionUnit::Step()
 						}
 						else
 						{
-							fpu_datab = mRegisters[mCurrentPixelIndex].r[next_inst.Compare.r_b];
+							fpu_datab = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Compare.r_b];
 						}
 
-						fpu_dataa = mRegisters[mCurrentPixelIndex].r[next_inst.Compare.r_a];
+						fpu_dataa = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Compare.r_a];
 						switch (next_inst.Raw.op)
 						{
 						case InstructionOpcode::cmp_lt:
@@ -227,22 +228,60 @@ void ExecutionUnit::Step()
 					}
 
 					case InstructionOpcode::copy:
-						mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_out] = mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_a];
+						mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_out] = mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_a];
 						fpu_clk_en = 0;
 						mStartExecutingMultiCycle = false;
 						break;
 					case InstructionOpcode::select:
-						mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_out] = mRegisters[mCurrentPixelIndex].CmpResult ?
-							mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_a] :
-							mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_b];
+						mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_out] = mRegisters[mCurrentPixelIndex].CmpResult ?
+							mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_a] :
+							mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_b];
 						fpu_clk_en = 0;
 						mStartExecutingMultiCycle = false;
 						break;
 					case InstructionOpcode::set:
-						mRegisters[mCurrentPixelIndex].r[next_inst.CopySelectSet.r_out] = mOpConstants[next_inst.CopySelectSet.constant_idx];
+						mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.CopySelectSet.r_out] = mOpConstants[next_inst.CopySelectSet.constant_idx];
 						fpu_clk_en = 0;
 						mStartExecutingMultiCycle = false;
 						break;
+
+					case InstructionOpcode::request_sample:
+					{
+						sc_uint<24> tex_base = as_uint24(mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Sample.r_base]);
+						sc_uint<24> tex_offset = as_uint24(mRegisters[mCurrentPixelIndex].Bank.Physical[next_inst.Sample.r_offset]);
+
+						MemoryAddress sample_address = tex_base;
+						sample_address <<= 2;
+						sample_address += tex_offset;
+
+						memory_request_address.write(sample_address);
+						request_memory_read.write(true);
+
+						break;
+					}
+
+					case InstructionOpcode::wait_sample:
+					{
+						if (memory_request_finished)
+						{
+							mWaitingForSample = false;
+							switch (next_inst.WaitSample.format)
+							{
+							case TextureFormat::f32:
+								mRegisters[mCurrentPixelIndex].Bank.Logical.TexSampleResult[0] = *(float*)&memory_read_data.read();
+								break;
+							default:
+								// TODO : Implement
+								__debugbreak();
+								break;
+							}
+						}
+						else
+						{
+							// Technically this is setting the variable each clock but who cares
+							mWaitingForSample = true;
+						}
+					}
 
 					default:
 						__debugbreak();

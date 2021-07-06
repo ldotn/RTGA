@@ -59,14 +59,15 @@
 			* cmp_ge : CmpResult = (A >= B)
 			* cmp_eq : CmpResult = (A == B)
 			* cmp_ne : CmpResult = (A != B)
-			* jpm : if(CmpResult) IP = CodeAddress. ALWAYS flushes the pipeline, there's no prediction or prefetch
+			* cjpm : if(CmpResult) IP = CodeAddress. 
+				- ALWAYS flushes the FPU pipeline, there's no prediction or prefetch
 		- Special
 			* finish : Indicates that the current pixel is finished.
 				Moves to the next pixel on the quad. If the quad its finished, notifies the pixel buffer
 			* request_sample r0, r1 : starts an async memory read 
 				* r0 and r1 must be positive integers less than 2^24
 					* Integers on that range are stored accurately and can be easily converted to ints
-					*   I_24 = (mantissa >> (23 - exp - 127) | (1 << (exp - 127))
+					*   I_24 = (mantissa >> (23 - exp - 127)) | (1 << (exp - 127))
 				* r0 is the texture start address, r1 the texture offset
 				* Min texture size is 16 bytes (2x2 pixels), max texture size is 64 MB and sample (pixel) size is 4 bytes
 				* When finished, memory_read_data = MemoryLoad32(4 * r0 + r1) // Memory is indexed every 4 bytes
@@ -85,8 +86,9 @@ constexpr int kRegisterBankSize = kRegistersPerThread
 								  + 3  // Tex sample results
 								  + 8  // Trace command
 								  + 25 // Trace results
-								  + 1  // Current pixel idx
-								  + 2; // QuadXY (shared on the EU)
+								  + 1  // Current pixel idx (duplicating for simplicity)
+								  + 1  // Output 
+								  + 2; // QuadXY (duplicating for simplicity)
 constexpr int kRegisterIndexBits = max_to_bits(kRegisterBankSize - 1);
 constexpr int kOpConstantIndexBits = max_to_bits(kOpConstantsPerEU - 1);
 
@@ -96,6 +98,8 @@ struct TraceCommand
 	float RayDirection[3];
 	float MinT;
 	float MaxT;
+
+	bool operator==(const TraceCommand&) const = default;
 };
 
 struct Triangle
@@ -104,6 +108,8 @@ struct Triangle
 	float Normal[3][3];
 	float UV[3][2];
 	float UserDataIndex; // Allows to have per triangle data(usually a material). Stored on the cbuffer
+	
+	bool operator==(const Triangle&) const = default;
 };
 
 struct TraceResult
@@ -111,6 +117,8 @@ struct TraceResult
 	float ClosestHitT;
 	float BarycentricHit[3];
 	Triangle HitTriangle;
+
+	bool operator==(const TraceResult&) const = default;
 };
 
 struct RegisterFile
@@ -131,10 +139,12 @@ struct RegisterFile
 			float TexSampleResult[3];
 			TraceCommand  CurrentTraceCommand;
 			TraceResult   HitData;
+			float CurrentPixelIdx;
+			float PixelOutput[3];
 			float QuadXY[2];
 		} Logical;
 
-		float Physical[kRegisterBankSize]; // I'm duplicating the QuadXY registers this way, for now let's keep it simple
+		float Physical[kRegisterBankSize]; // I'm duplicating the shared registers this way, for now let's keep it simple
 	} Bank;
 	
 	CodeAddress   IP;
@@ -208,11 +218,43 @@ inline void sc_trace(sc_trace_file* file, const RegisterFile& regs, const std::s
 	sc_trace(file, regs.Bank.Logical.HitData, str + "_trace_result");
 }
 
+inline ostream& operator<<(ostream& os, TraceCommand const& tc)
+{
+	// I'm lazy
+	for (int i = 0; i < (sizeof(TraceCommand) / 4); ++i)
+		os << ((float*)&tc)[i];
+
+	return os;
+}
+
+inline ostream& operator<<(ostream& os, Triangle const& t)
+{
+	// I'm lazy
+	for (int i = 0; i < (sizeof(Triangle) / 4); ++i)
+		os << ((float*)&t)[i];
+	return os;
+}
+
+inline ostream& operator<<(ostream& os, TraceResult const& tr)
+{
+	os << tr.ClosestHitT 
+	   << tr.BarycentricHit[0]
+	   << tr.BarycentricHit[1]
+	   << tr.BarycentricHit[2]
+	   << tr.HitTriangle;
+
+	return os;
+}
+
 struct InstructionOpcode
 {
+	// The order is important here, as it's used for type checking
 	enum
 	{
-		add,
+		FirstFPU,
+		FirstMultiCycleFPU = FirstFPU,
+
+		add = FirstMultiCycleFPU,
 		sub,
 		mul,
 		div,
@@ -220,28 +262,44 @@ struct InstructionOpcode
 		floor,
 		round,
 
-		min,
+		LastMultiCycleFPU = round,
+
+		FirstCombFPU,
+
+		min = FirstCombFPU,
 		max,
 		neg,
 		abs,
 
-		cmp_lt,
+		FirstCmp,
+		cmp_lt = FirstCmp,
 		cmp_le,
 		cmp_gt,
 		cmp_ge,
 		cmp_eq,
 		cmp_ne,
+		LastCmp = cmp_ne,
 
+		LastCombFPU = cmp_ne,
+		LastFPU = LastCombFPU,
+
+		FirstAsync,
+
+		wait_sample = FirstAsync,
+		trace,
+		
+		LastAsync = trace,
+
+		// Other ops
 		copy,
 		select,
 		set,
 
 		request_sample,
-		wait_sample,
+		
 		cb_load,
-		jmp,
+		cjmp,
 		finish,
-		trace,
 
 		nop,
 
@@ -322,13 +380,14 @@ struct Instruction
 			uint32_t constant_idx : kOpConstantIndexBits;
 		} CompareConst;
 
-		// jmp
+		// cjmp
 		struct
 		{
 			uint32_t op : InstructionOpcode::kBits;
 			uint32_t address : kCodeAddressBits;
+			uint32_t is_conditional : 1;
 
-			static constexpr int kBits = InstructionOpcode::kBits + kCodeAddressBits;
+			static constexpr int kBits = InstructionOpcode::kBits + kCodeAddressBits + 1;
 		} Jump;
 
 		// finish, trace
@@ -364,6 +423,27 @@ struct Instruction
 	bool operator==(const Instruction& rhs) const
 	{
 		return (Raw.op == rhs.Raw.op) && (Raw.data == rhs.Raw.data);
+	}
+
+	bool IsFPU() const
+	{
+		return Raw.op >= InstructionOpcode::FirstFPU && Raw.op <= InstructionOpcode::LastFPU;
+	}
+	bool IsMulticycle() const
+	{
+		return Raw.op >= InstructionOpcode::FirstMultiCycleFPU && Raw.op <= InstructionOpcode::LastMultiCycleFPU;
+	}
+	bool IsCombFPU() const
+	{
+		return Raw.op >= InstructionOpcode::FirstCombFPU && Raw.op <= InstructionOpcode::LastCombFPU;
+	}
+	bool IsCmp() const
+	{
+		return Raw.op >= InstructionOpcode::FirstCmp && Raw.op <= InstructionOpcode::LastCmp;
+	}
+	bool IsAsync() const
+	{
+		return Raw.op >= InstructionOpcode::FirstAsync && Raw.op <= InstructionOpcode::LastAsync;
 	}
 };
 

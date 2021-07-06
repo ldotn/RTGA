@@ -8,9 +8,19 @@ SC_MODULE(Testbench)
 	sc_in_clk clk;
 	sc_out<bool> begin_signal;
 
+	bool started = false;
+
 	void Step()
 	{
-		begin_signal.write(true);
+		if (!started)
+		{
+			begin_signal.write(true);
+			started = true;
+		}
+		else
+		{
+			begin_signal.write(false);
+		}
 	}
 
 	SC_CTOR(Testbench)
@@ -34,23 +44,44 @@ int main(int argc, const char* argv[])
 	sc_signal<CodeAddress> next_code_address;
 	sc_signal<MemoryAddress> memory_request_address;
 	sc_signal<bool> request_memory_read;
-	sc_signal<PixelCoord> next_block_xy;
-	sc_signal<PixelQuad> out_quad;
+	sc_signal<PixelCoord> quad_xy;
+	sc_signal<Pixel> out_quad;
 	sc_signal<bool> begin_signal;
 	sc_signal<bool> finished_signal;
+	sc_signal<bool> async_request_finished;
+	sc_signal<float> cb_data;
+	sc_signal<TraceResult> trace_results;
 
 	sc_clock clk("Clock", 10, SC_NS, 0.5, 0.0, SC_NS);
 
 	ExecutionUnit eu0("EU0");
 	eu0.clk(clk); 
-	eu0.current_instruction(current_instruction); 
-	eu0.next_code_address(next_code_address); 
+	eu0.next_instruction[0](current_instruction);
+	eu0.next_instruction[1](current_instruction);
+	eu0.next_instruction[2](current_instruction);
+	eu0.next_instruction[3](current_instruction);
+	eu0.next_code_address[0](next_code_address); 
+	eu0.next_code_address[1](next_code_address); 
+	eu0.next_code_address[2](next_code_address); 
+	eu0.next_code_address[3](next_code_address); 
 	eu0.memory_request_address(memory_request_address); 
 	eu0.request_memory_read(request_memory_read); 
-	eu0.next_block_xy(next_block_xy); 
-	eu0.out_quad(out_quad);
+	eu0.quad_xy(quad_xy);
+	eu0.out_quad[0](out_quad);
+	eu0.out_quad[1](out_quad);
+	eu0.out_quad[2](out_quad);
+	eu0.out_quad[3](out_quad);
 	eu0.begin_signal(begin_signal);
 	eu0.finished_signal(finished_signal);
+	eu0.async_request_finished[0](async_request_finished);
+	eu0.async_request_finished[1](async_request_finished);
+	eu0.async_request_finished[2](async_request_finished);
+	eu0.async_request_finished[3](async_request_finished);
+	eu0.cb_data(cb_data);
+	eu0.trace_results[0](trace_results);
+	eu0.trace_results[1](trace_results);
+	eu0.trace_results[2](trace_results);
+	eu0.trace_results[3](trace_results);
 
 	// Run simulation
 	Testbench tst("Test");

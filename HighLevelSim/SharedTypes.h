@@ -15,7 +15,13 @@ inline uint32_t as_uint24(float x)
 	uint32_t exp = raw & (255 << 22);
 
 	// Bit hackery! Ints up to 2^24 are accurately stored on floats and as such can be easily converted back
-	return mantissa >> (23 - exp - 127) | (1 << (exp - 127));
+	return (mantissa >> (23 - exp - 127)) | (1 << (exp - 127));
+}
+
+inline float from_uint24(uint32_t x)
+{
+	// TODO : Implement!!!
+	return float(x);
 }
 
 // Typedefing all this to centralize the definitions and data widths

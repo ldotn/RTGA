@@ -1,0 +1,57 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA_lite/20.1
+vfloat_to_uint
+!s110 1618713943
+!i10b 1
+!s100 BG3BJAHX_F[g?^HF4Hh3Z3
+Z0 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IJ>aC>T;MRJWdGcdoDBbaF3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/Research/RaytracerFPGA/Snippets
+Z3 w1618713896
+Z4 8C:/Research/RaytracerFPGA/Snippets/float_to_uint.v
+Z5 FC:/Research/RaytracerFPGA/Snippets/float_to_uint.v
+!i122 5
+L0 1 42
+Z6 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z7 !s108 1618713943.000000
+!s107 C:/Research/RaytracerFPGA/Snippets/float_to_uint.v|
+Z8 !s90 -reportprogress|300|-work|work|-stats=none|C:/Research/RaytracerFPGA/Snippets/float_to_uint.v|
+!i113 1
+Z9 o-work work
+Z10 tCvgOpt 0
+vt
+!s110 1618713944
+!i10b 1
+!s100 In@dGoj8MXkljYj?M=kPY1
+R0
+IV<>fzJM]jJhIl_Ib7EN=Z0
+R1
+R2
+R3
+R4
+R5
+!i122 5
+L0 47 27
+R6
+r1
+!s85 0
+31
+R7
+Z11 !s107 C:/Research/RaytracerFPGA/Snippets/float_to_uint.v|
+R8
+!i113 1
+R9
+R10

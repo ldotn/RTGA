@@ -98,21 +98,32 @@ void ExecutionUnit::Step()
 			}
 			else if (mCurrentInstruction[mCurrentPixelIndex].IsAsync())
 			{
-				if (async_request_finished[0])
-					mCurrentPixelIndex = 0;
-				else if (async_request_finished[1])
-					mCurrentPixelIndex = 1;
-				else if (async_request_finished[2])
-					mCurrentPixelIndex = 2;
-				else if (async_request_finished[3])
-					mCurrentPixelIndex = 3;
-				else
+				// If the request queue is full, then we can't advance until the request has been enqueued 
+				// Technically you could switch to another pixels, but the logic gets a lot more complex as you can't touch any of the registers of the unsent request
+				if ((mCurrentInstruction[mCurrentPixelIndex].Raw.op == InstructionOpcode::request_sample && is_memory_queue_full) ||
+					(mCurrentInstruction[mCurrentPixelIndex].Raw.op == InstructionOpcode::trace && is_trace_queue_full))
+				{
 					advance_ip = false;
+				}
+				else
+				{
+					if (async_request_finished[0])
+						mCurrentPixelIndex = 0;
+					else if (async_request_finished[1])
+						mCurrentPixelIndex = 1;
+					else if (async_request_finished[2])
+						mCurrentPixelIndex = 2;
+					else if (async_request_finished[3])
+						mCurrentPixelIndex = 3;
+					else
+						advance_ip = false;
 
-				mRegisters[0].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
-				mRegisters[1].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
-				mRegisters[2].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
-				mRegisters[3].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
+					// TODO : It might make sense to pipeline this
+					mRegisters[0].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
+					mRegisters[1].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
+					mRegisters[2].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
+					mRegisters[3].Bank.Logical.CurrentPixelIdx = from_uint24(mCurrentPixelIndex);
+				}
 			}
 			
 			// Only needed when the prev op was a mem read, but just clean it always
@@ -380,6 +391,10 @@ void ExecutionUnit::Step()
 					}
 					break;
 				}
+
+				default:
+					__debugbreak();
+					break;
 				}
 
 				// Update current instruction

@@ -49,6 +49,8 @@ int main(int argc, const char* argv[])
 	sc_signal<bool> begin_signal;
 	sc_signal<bool> finished_signal;
 	sc_signal<bool> async_request_finished;
+	sc_signal<bool> is_trace_queue_full;
+	sc_signal<bool> is_memory_queue_full;
 	sc_signal<float> cb_data;
 	sc_signal<TraceResult> trace_results;
 
@@ -82,6 +84,8 @@ int main(int argc, const char* argv[])
 	eu0.trace_results[1](trace_results);
 	eu0.trace_results[2](trace_results);
 	eu0.trace_results[3](trace_results);
+	eu0.is_trace_queue_full(is_trace_queue_full);
+	eu0.is_memory_queue_full(is_memory_queue_full);
 
 	// Run simulation
 	Testbench tst("Test");

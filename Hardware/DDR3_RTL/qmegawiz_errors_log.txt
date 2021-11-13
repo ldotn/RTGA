@@ -1,0 +1,11 @@
+
+
+D:/Research/BaseFPGA/DDR3_RTL/pll.v
+
+Nov 09 10PM:12:47>: File D:/Research/BaseFPGA/DDR3_RTL/pll.v does not exist.
+Do you want to create the file?
+
+D:/Research/BaseFPGA/DDR3_RTL/pll.v
+
+Nov 09 10PM:12:47>: File D:/Research/BaseFPGA/DDR3_RTL/pll.v does not exist.
+Do you want to create the file?

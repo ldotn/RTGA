@@ -13,6 +13,11 @@ struct ExecutionUnit : sc_module
 
 	// This can be a trace or a memory request
 	sc_in<bool> async_request_finished[4];
+	
+	// There might not be space on the queues
+	// TODO : See if it makes sense to provide a unified API for async requests
+	sc_in<bool> is_trace_queue_full;
+	sc_in<bool> is_memory_queue_full;
 
 	sc_out<MemoryAddress> memory_request_address;
 	sc_out<bool> request_memory_read;

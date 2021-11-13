@@ -200,7 +200,7 @@ inline void sc_trace(sc_trace_file* file, const TraceResult& result, const std::
 	sc_trace(file, result.ClosestHitT, str + "_closest_t");
 	sc_trace(file, result.BarycentricHit[0], str + "_barycentric_u");
 	sc_trace(file, result.BarycentricHit[1], str + "_barycentric_v");
-	sc_trace(file, result.BarycentricHit[2], str + "_barycentric_w");
+	sc_trace(file, result.BarycentricHit[2], str + "_barycentric_w"); 
 	sc_trace(file, result.HitTriangle, str + "_trig");
 }
 
@@ -389,13 +389,6 @@ struct Instruction
 
 			static constexpr int kBits = InstructionOpcode::kBits + kCodeAddressBits + 1;
 		} Jump;
-
-		// finish, trace
-		struct
-		{
-			uint32_t op : InstructionOpcode::kBits;
-		} Signal;
-
 
 		// request_sample
 		struct

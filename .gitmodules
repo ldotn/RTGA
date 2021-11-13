@@ -1,3 +1,6 @@
 [submodule "systemc"]
 	path = systemc
 	url = https://github.com/accellera-official/systemc.git
+[submodule "Hardware/BaseFPGA"]
+	path = Hardware/BaseFPGA
+	url = https://github.com/ldotn/BaseFPGA.git

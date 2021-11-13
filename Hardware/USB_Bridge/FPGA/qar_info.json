@@ -1,0 +1,7 @@
+{
+	"common_dir" : "D:/Research/neuron_fpga/",
+	"acds_version" : "Version 19.1.0",
+	"platform" : "windows",
+	"os" : "Windows 10",
+	"qpf" : "DE10_Nano_golden_top.qpf"
+}
